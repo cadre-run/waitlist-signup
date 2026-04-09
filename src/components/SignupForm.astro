@@ -1,0 +1,119 @@
+---
+interface Props {
+  variant?: 'hero' | 'final';
+}
+
+const { variant = 'hero' } = Astro.props;
+const isHero = variant === 'hero';
+---
+
+<div class="w-full max-w-md" data-signup-form>
+  <form class="flex flex-col sm:flex-row gap-3" id="signup-form">
+    <div class="relative flex-1">
+      <input
+        type="email"
+        name="email"
+        placeholder="you@company.com"
+        required
+        autocomplete="email"
+        class:list={[
+          'w-full px-4 py-3.5 rounded-[var(--radius-sm)] text-base outline-none transition-all',
+          isHero
+            ? 'border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:border-primary focus:shadow-[0_0_0_3px_rgba(79,70,229,0.1)]'
+            : 'border border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:border-white/40 focus:shadow-[0_0_0_3px_rgba(255,255,255,0.1)]',
+        ]}
+        style="transition-duration: var(--duration-normal);"
+      />
+    </div>
+    <button
+      type="submit"
+      class:list={[
+        'px-7 py-3.5 rounded-[var(--radius-sm)] font-semibold text-base transition-all whitespace-nowrap cursor-pointer',
+        isHero
+          ? 'bg-primary text-white hover:bg-primary-hover hover:shadow-[var(--shadow-glow)] active:scale-[0.98]'
+          : 'bg-white text-primary hover:bg-white/90 active:scale-[0.98]',
+      ]}
+      style="transition-duration: var(--duration-normal);"
+    >
+      Get Early Access
+    </button>
+  </form>
+
+  <p class="hidden mt-3 text-sm text-red-500 font-medium" data-error></p>
+  <p class="hidden mt-3 text-sm" data-success>
+    <span class:list={[isHero ? 'text-primary font-medium' : 'text-white/80']}>
+      Check your inbox to confirm your email!
+    </span>
+  </p>
+
+  <p class:list={['mt-4 text-sm', isHero ? 'text-[var(--color-text-tertiary)]' : 'text-white/50']} data-counter>
+    Join <span class="font-medium" data-count>&mdash;</span> others on the waitlist &middot; No spam, ever.
+  </p>
+</div>
+
+<script>
+  const forms = document.querySelectorAll('[data-signup-form]');
+
+  fetch('/api/stats')
+    .then((r) => r.json())
+    .then((data) => {
+      document.querySelectorAll('[data-count]').forEach((el) => {
+        el.textContent = data.total_signups || '0';
+      });
+    })
+    .catch(() => {
+      document.querySelectorAll('[data-count]').forEach((el) => {
+        el.textContent = '0';
+      });
+    });
+
+  forms.forEach((wrapper) => {
+    const form = wrapper.querySelector('form') as HTMLFormElement;
+    const errorEl = wrapper.querySelector('[data-error]') as HTMLElement;
+    const successEl = wrapper.querySelector('[data-success]') as HTMLElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.add('hidden');
+      successEl.classList.add('hidden');
+
+      const formData = new FormData(form);
+      const email = formData.get('email') as string;
+      const urlParams = new URLSearchParams(window.location.search);
+      const ref = urlParams.get('ref');
+
+      const button = form.querySelector('button') as HTMLButtonElement;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Joining…';
+      button.style.opacity = '0.7';
+
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, ref }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorEl.textContent = data.error || 'Something went wrong. Please try again.';
+          errorEl.classList.remove('hidden');
+          button.disabled = false;
+          button.textContent = originalText;
+          button.style.opacity = '1';
+          return;
+        }
+
+        window.location.href = `/welcome?code=${data.referral_code}`;
+      } catch {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.remove('hidden');
+        button.disabled = false;
+        button.textContent = originalText;
+        button.style.opacity = '1';
+      }
+    });
+  });
+</script>

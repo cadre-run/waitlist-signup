@@ -1,0 +1,197 @@
+---
+import SignupForm from './SignupForm.astro';
+---
+
+<section class="relative overflow-hidden">
+  <!-- Background layers -->
+  <div class="absolute inset-0 bg-gradient-radial pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute inset-0 bg-grid pointer-events-none opacity-50" aria-hidden="true"></div>
+
+  <!-- Floating orbs for depth -->
+  <div class="orb orb-indigo orb-animate w-[500px] h-[500px] -top-40 -right-40 opacity-60" aria-hidden="true"></div>
+  <div class="orb orb-violet orb-animate w-[400px] h-[400px] -bottom-20 -left-40 opacity-40" style="animation-delay: -7s;" aria-hidden="true"></div>
+  <div class="orb orb-peach orb-animate w-[300px] h-[300px] top-1/3 right-1/4 opacity-30" style="animation-delay: -13s;" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 pt-8 pb-20 lg:pt-10 lg:pb-28">
+
+    <!-- Logo -->
+    <div class="mb-10 lg:mb-12" style="animation: var(--animate-fade-in); animation-delay: 0s;">
+      <img src="/images/logo-wordmark.svg" alt="Cadre" class="h-12 lg:h-14 w-auto" />
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <!-- Text Content -->
+      <div class="max-w-xl">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[var(--color-border)] bg-white/80 backdrop-blur-sm text-sm text-[var(--color-text-secondary)] mb-8 shadow-[var(--shadow-sm)]"
+          style="animation: var(--animate-fade-up); animation-delay: 0.05s;"
+        >
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent-warm)] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--color-accent-warm)]"></span>
+          </span>
+          Now accepting early access signups
+        </div>
+
+        <!-- Headline -->
+        <h1
+          class="text-[2.75rem] sm:text-5xl lg:text-[3.75rem] font-bold tracking-[-0.035em] leading-[1.05] text-[var(--color-text-primary)]"
+          style="animation: var(--animate-fade-up); animation-delay: 0.12s;"
+        >
+          Your AI team,<br />
+          <span class="text-gradient">deployed in minutes.</span>
+        </h1>
+
+        <!-- Subline -->
+        <p
+          class="mt-7 text-lg lg:text-xl text-[var(--color-text-secondary)] leading-relaxed max-w-lg"
+          style="animation: var(--animate-fade-up); animation-delay: 0.2s;"
+        >
+          Cadre provisions a fully isolated AI company on your own server. Pre-optimized prompts, Gemini CLI ready, hardened infrastructure.
+        </p>
+
+        <!-- CTA -->
+        <div
+          class="mt-10"
+          style="animation: var(--animate-fade-up); animation-delay: 0.28s;"
+        >
+          <SignupForm variant="hero" />
+        </div>
+
+        <!-- Trust Badges -->
+        <div
+          class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-[var(--color-text-tertiary)]"
+          style="animation: var(--animate-fade-up); animation-delay: 0.36s;"
+        >
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+            GDPR Compliant
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+            Your Server, Your Data
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+            Setup &lt; 5 min
+          </span>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           HERO VISUAL — Product Showcase Composition
+           ═══════════════════════════════════════════ -->
+      <div
+        class="relative lg:justify-self-end w-full max-w-[560px]"
+        style="animation: var(--animate-scale-in); animation-delay: 0.15s;"
+      >
+        <!-- Large ambient glow -->
+        <div class="absolute -inset-12 bg-gradient-to-br from-primary/10 via-[#7C3AED]/8 to-[var(--color-accent-peach)]/15 rounded-[40px] blur-3xl animate-pulse" style="animation-duration: 4s;" aria-hidden="true"></div>
+
+        <!-- Main image -->
+        <div class="relative rounded-2xl overflow-hidden border border-white/50 shadow-[var(--shadow-xl)] bg-white/40 backdrop-blur-sm">
+          <img
+            src="/images/hero-org-chart.png"
+            alt="AI team organizational chart visualization"
+            class="w-full"
+            width="560"
+            height="350"
+            loading="eager"
+          />
+        </div>
+
+        <!-- ── Floating Card: Terminal Command ── -->
+        <div
+          class="absolute -left-6 lg:-left-12 top-4 lg:top-6 max-w-[220px]"
+          style="animation: var(--animate-fade-up); animation-delay: 0.45s;"
+        >
+          <div class="rounded-xl bg-[#0F172A] shadow-[var(--shadow-xl)] border border-white/10 p-3.5 text-[11px] font-mono leading-relaxed">
+            <div class="flex items-center gap-1.5 mb-2.5">
+              <span class="w-2 h-2 rounded-full bg-red-400"></span>
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            </div>
+            <div class="text-[var(--color-text-tertiary)]">
+              <span class="text-emerald-400">$</span> cadre deploy
+            </div>
+            <div class="text-white/50 mt-1">
+              <span class="text-primary">&#x2713;</span> Server provisioned
+            </div>
+            <div class="text-white/50">
+              <span class="text-primary">&#x2713;</span> Hardened &amp; secured
+            </div>
+            <div class="text-white/50">
+              <span class="text-primary">&#x2713;</span> 3 departments ready
+            </div>
+            <div class="text-emerald-400 mt-1 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live in 4m 23s
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Floating Card: Agent Status ── -->
+        <div
+          class="absolute -right-4 lg:-right-10 bottom-16 lg:bottom-20"
+          style="animation: var(--animate-fade-up); animation-delay: 0.55s;"
+        >
+          <div class="rounded-xl bg-white shadow-[var(--shadow-lg)] border border-[var(--color-border-light)] p-3.5">
+            <div class="text-[10px] font-semibold text-[var(--color-text-tertiary)] uppercase tracking-wider mb-2">Active Agents</div>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-xs font-medium text-[var(--color-text-primary)]">Content Writer</span>
+                <span class="text-[10px] text-emerald-500 ml-auto font-mono">$0.08</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span class="text-xs font-medium text-[var(--color-text-primary)]">Lead Researcher</span>
+                <span class="text-[10px] text-emerald-500 ml-auto font-mono">$0.12</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <span class="text-xs font-medium text-[var(--color-text-primary)]">Data Analyst</span>
+                <span class="text-[10px] text-amber-500 ml-auto font-mono">$0.15</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Floating Card: Cost Savings ── -->
+        <div
+          class="absolute -right-2 lg:-right-6 -top-3 lg:-top-5"
+          style="animation: var(--animate-fade-up); animation-delay: 0.65s;"
+        >
+          <div class="rounded-xl bg-white shadow-[var(--shadow-lg)] border border-[var(--color-border-light)] px-4 py-3 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center">
+              <svg class="w-4.5 h-4.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
+            </div>
+            <div>
+              <div class="text-sm font-bold text-[var(--color-text-primary)]">-58% tokens</div>
+              <div class="text-[10px] text-[var(--color-text-tertiary)]">vs. default prompts</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Floating Card: Bottom left badge ── -->
+        <div
+          class="absolute -bottom-3 left-4 lg:left-8"
+          style="animation: var(--animate-fade-up); animation-delay: 0.7s;"
+        >
+          <div class="rounded-full bg-white shadow-[var(--shadow-md)] border border-[var(--color-border-light)] px-4 py-2 flex items-center gap-2">
+            <div class="flex -space-x-1.5">
+              <div class="w-5 h-5 rounded-full bg-primary/20 border-2 border-white"></div>
+              <div class="w-5 h-5 rounded-full bg-violet-400/30 border-2 border-white"></div>
+              <div class="w-5 h-5 rounded-full bg-amber-400/30 border-2 border-white"></div>
+            </div>
+            <span class="text-xs font-medium text-[var(--color-text-secondary)]">3 departments</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>

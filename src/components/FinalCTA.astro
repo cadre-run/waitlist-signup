@@ -1,0 +1,36 @@
+---
+import SignupForm from './SignupForm.astro';
+---
+
+<section class="relative overflow-hidden py-28 lg:py-36">
+  <!-- Animated gradient background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-[#1e1b4b] via-primary to-[#7C3AED]" aria-hidden="true"></div>
+
+  <!-- Animated gradient shift -->
+  <div class="absolute inset-0 opacity-50" style="background: linear-gradient(135deg, #4F46E5, #7C3AED, #4F46E5, #2563EB); background-size: 300% 300%; animation: gradient-shift 8s ease infinite;" aria-hidden="true"></div>
+
+  <!-- Grid overlay -->
+  <div class="absolute inset-0 opacity-[0.06]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 48px 48px;" aria-hidden="true"></div>
+
+  <!-- Floating orbs -->
+  <div class="orb orb-animate w-[400px] h-[400px] top-0 -right-40 opacity-20" style="background: rgba(255,255,255,0.1); animation-delay: -3s;" aria-hidden="true"></div>
+  <div class="orb orb-animate w-[300px] h-[300px] -bottom-20 -left-20 opacity-15" style="background: rgba(255,255,255,0.08); animation-delay: -10s;" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-2xl px-6 text-center">
+    <h2 class="text-3xl lg:text-[3rem] font-bold tracking-[-0.03em] text-white leading-tight animate-on-scroll">
+      Your AI team is waiting.
+    </h2>
+    <p class="mt-5 text-lg text-white/50 animate-on-scroll delay-1">
+      Join the waitlist. Be first when Cadre launches.
+    </p>
+
+    <div class="mt-10 flex justify-center animate-on-scroll delay-2">
+      <SignupForm variant="final" />
+    </div>
+
+    <p class="mt-8 text-sm text-white/30 flex items-center justify-center gap-1.5 animate-on-scroll delay-3">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+      No spam. Unsubscribe anytime. Launch updates only.
+    </p>
+  </div>
+</section>

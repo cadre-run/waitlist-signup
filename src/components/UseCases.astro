@@ -1,0 +1,95 @@
+---
+const useCases = [
+  {
+    persona: 'Solopreneur',
+    description: 'AI Content Team that researches, writes, and publishes — without DevOps knowledge.',
+    before: '3h Docker debugging, $200 wasted API calls',
+    after: 'Login, configure, content pipeline runs',
+    icon: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699-2.103l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 01-.947.546l-2.836-.708a.75.75 0 01.546-.947l2.841-.708z" /></svg>`,
+    color: 'from-violet-500/10 to-indigo-500/5',
+  },
+  {
+    persona: 'Agency',
+    description: 'Delegate repetitive client work — Lead Research, Reporting, Outreach — to AI agents.',
+    before: 'Manually managing VAs, inconsistent quality',
+    after: 'Standardized AI departments per client',
+    icon: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>`,
+    color: 'from-blue-500/10 to-cyan-500/5',
+  },
+  {
+    persona: 'Mittelstand',
+    description: 'AI automations for back-office — DMS, Bookkeeping, Classification — without building AI infra.',
+    before: '6-month AI project, external consultant',
+    after: 'Cadre provisioned, DMS active, agents running',
+    icon: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3H21m-3.75 3H21" /></svg>`,
+    color: 'from-emerald-500/10 to-green-500/5',
+  },
+  {
+    persona: 'Developer',
+    description: 'You know Paperclip, but you don\'t want to debug Docker problems every day.',
+    before: 'Every update breaks something',
+    after: 'Managed infra, focus on agent config',
+    icon: `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>`,
+    color: 'from-amber-500/10 to-orange-500/5',
+  },
+];
+---
+
+<section class="relative bg-white py-28 lg:py-36 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-radial-strong pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+
+    <div class="text-center mb-16 lg:mb-20 animate-on-scroll">
+      <p class="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Use Cases</p>
+      <h2 class="text-3xl lg:text-[2.75rem] font-bold tracking-[-0.03em] text-[var(--color-text-primary)]">
+        Built for builders like you
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      {useCases.map((uc, i) => (
+        <div
+          class:list={[
+            'card-premium group relative p-8 lg:p-10',
+            'transition-all hover:shadow-[var(--shadow-lg)] hover:-translate-y-1',
+            'animate-on-scroll',
+            `delay-${i + 1}`,
+          ]}
+          style="transition-duration: var(--duration-slow);"
+        >
+          <!-- Gradient bg on hover -->
+          <div class:list={['absolute inset-0 rounded-[var(--radius-lg)] bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity', uc.color]} style="transition-duration: var(--duration-slow);" aria-hidden="true"></div>
+
+          <div class="relative">
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-[var(--radius-md)] bg-primary/8 text-primary flex items-center justify-center transition-all group-hover:bg-primary/15" style="transition-duration: var(--duration-normal);">
+                <Fragment set:html={uc.icon} />
+              </div>
+              <h3 class="text-lg font-bold text-[var(--color-text-primary)]">{uc.persona}</h3>
+            </div>
+
+            <p class="text-[var(--color-text-secondary)] mb-8 leading-relaxed">{uc.description}</p>
+
+            <!-- Before / After with visual treatment -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 text-sm">
+                <span class="shrink-0 w-5 h-5 rounded-full bg-red-50 flex items-center justify-center">
+                  <svg class="w-3 h-3 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </span>
+                <span class="text-[var(--color-text-tertiary)] line-through">{uc.before}</span>
+              </div>
+              <div class="flex items-center gap-3 text-sm">
+                <span class="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                  <svg class="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                </span>
+                <span class="text-[var(--color-text-primary)] font-medium">{uc.after}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

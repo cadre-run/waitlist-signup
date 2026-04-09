@@ -1,0 +1,67 @@
+---
+const rows = [
+  { label: 'Setup Time', self: 'Hours–Days', cadre: '< 5 Minutes' },
+  { label: 'Docker/DevOps', self: 'Required', cadre: 'Not needed' },
+  { label: 'Token Optimization', self: 'DIY', cadre: 'Pre-configured' },
+  { label: 'Gemini CLI', self: 'Manual setup', cadre: 'Out of the box' },
+  { label: 'Server Hardening', self: 'Your responsibility', cadre: 'Automated' },
+  { label: 'Department RBAC', self: 'Basic', cadre: 'Granular' },
+  { label: 'Monitoring', self: 'Build yourself', cadre: 'Built-in' },
+  { label: 'Modules', self: 'Not available', cadre: 'Module Hub' },
+  { label: 'GDPR', self: 'Your problem', cadre: 'Built-in' },
+];
+---
+
+<section class="relative bg-[#0B0F1A] py-28 lg:py-36 overflow-hidden">
+  <!-- Decorative gradient -->
+  <div class="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" aria-hidden="true"></div>
+  <div class="orb orb-animate w-[600px] h-[600px] -top-60 left-1/2 -translate-x-1/2 opacity-20" style="background: rgba(79, 70, 229, 0.15); animation-delay: -5s;" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6">
+
+    <div class="text-center mb-16 lg:mb-20 animate-on-scroll">
+      <p class="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Comparison</p>
+      <h2 class="text-3xl lg:text-[2.75rem] font-bold tracking-[-0.03em] text-white">
+        Built different
+      </h2>
+      <p class="mt-4 text-lg text-white/40 max-w-xl mx-auto">
+        See what changes when infrastructure becomes invisible.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto animate-on-scroll delay-1">
+      <div class="overflow-hidden rounded-[var(--radius-xl)] border border-white/10 bg-white/[0.03] backdrop-blur-sm shadow-[0_0_60px_rgba(79,70,229,0.08)]">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="px-6 py-5 text-sm font-medium text-white/30"></th>
+              <th class="px-6 py-5 text-sm font-medium text-white/30">Self-Host</th>
+              <th class="px-6 py-5 text-sm font-semibold text-primary">
+                <span class="flex items-center gap-2.5">
+                  <img src="/images/logo-wordmark.svg" alt="Cadre" class="h-8 w-auto brightness-0 invert" />
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr class:list={[
+                i < rows.length - 1 && 'border-b border-white/5',
+                'transition-colors hover:bg-white/[0.02]',
+              ]} style="transition-duration: var(--duration-fast);">
+                <td class="px-6 py-4.5 text-sm font-medium text-white/70">{row.label}</td>
+                <td class="px-6 py-4.5 text-sm text-white/25">{row.self}</td>
+                <td class="px-6 py-4.5 text-sm text-white font-medium">
+                  <span class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                    {row.cadre}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
