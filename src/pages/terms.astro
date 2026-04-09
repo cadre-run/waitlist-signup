@@ -1,0 +1,26 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Terms of Service – Cadre" description="Cadre terms of service.">
+  <main class="min-h-screen bg-white">
+    <div class="mx-auto max-w-3xl px-6 py-24">
+      <a href="/" class="inline-block mb-12">
+        <img src="/images/logo-wordmark.svg" alt="Cadre" class="h-10 w-auto" />
+      </a>
+      <h1 class="text-3xl font-bold tracking-[-0.03em] text-[var(--color-text-primary)] mb-8">Terms of Service</h1>
+      <div class="prose prose-slate max-w-none text-[var(--color-text-secondary)] space-y-6">
+        <p><strong>Last updated:</strong> April 9, 2026</p>
+        <h2 class="text-xl font-semibold text-[var(--color-text-primary)] mt-8">Waitlist</h2>
+        <p>By joining the Cadre waitlist, you agree to receive email updates about the Cadre launch and product. You can unsubscribe at any time.</p>
+        <h2 class="text-xl font-semibold text-[var(--color-text-primary)] mt-8">Referral program</h2>
+        <p>Waitlist positions may change based on referral activity. Cadre reserves the right to modify the referral program at any time. Abuse (fake signups, bot traffic) will result in removal from the waitlist.</p>
+        <h2 class="text-xl font-semibold text-[var(--color-text-primary)] mt-8">No guarantees</h2>
+        <p>Joining the waitlist does not guarantee access to Cadre or any specific launch timeline. Features described on the landing page represent planned functionality and may change.</p>
+        <h2 class="text-xl font-semibold text-[var(--color-text-primary)] mt-8">Contact</h2>
+        <p>Cadre · Built in Germany · <a href="mailto:hello@cadre.run" class="text-primary hover:underline">hello@cadre.run</a></p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
