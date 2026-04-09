@@ -24,11 +24,16 @@ function emailLayout(content: string) {
       <td align="center">
         <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width: 480px; width: 100%;">
 
-          <!-- Logo -->
+          <!-- Logo: inline C badge + text (dark-mode safe) -->
           <tr>
             <td style="padding: 0 24px 32px;">
-              <a href="https://cadre.run" style="text-decoration: none;">
-                <img src="https://cadre.run/images/logo-wordmark.svg" alt="Cadre" width="120" height="40" style="display: block; height: 40px; width: auto;" />
+              <a href="https://cadre.run" style="text-decoration: none; display: inline-flex; align-items: center;">
+                <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+                  <td style="width: 34px; height: 34px; background: #4F46E5; border-radius: 9px; text-align: center; vertical-align: middle;">
+                    <img src="https://cadre.run/favicon.svg" alt="" width="34" height="34" style="display: block; border-radius: 9px;" />
+                  </td>
+                  <td style="padding-left: 10px; font-size: 18px; font-weight: 600; color: #0F172A; letter-spacing: -0.5px;">cadre</td>
+                </tr></table>
               </a>
             </td>
           </tr>
@@ -49,12 +54,12 @@ function emailLayout(content: string) {
           <!-- Footer -->
           <tr>
             <td style="padding: 28px 24px 0; text-align: center;">
-              <p style="margin: 0 0 8px; font-size: 12px; color: #94A3B8;">
-                <a href="https://x.com/runcadre" style="color: #94A3B8; text-decoration: none;">X (Twitter)</a>
+              <p style="margin: 0 0 8px; font-size: 12px; color: #64748B;">
+                <a href="https://x.com/runcadre" style="color: #64748B; text-decoration: none;">X (Twitter)</a>
                 &nbsp;&middot;&nbsp;
-                <a href="https://cadre.run" style="color: #94A3B8; text-decoration: none;">cadre.run</a>
+                <a href="https://cadre.run" style="color: #64748B; text-decoration: none;">cadre.run</a>
               </p>
-              <p style="margin: 0; font-size: 11px; color: #CBD5E1;">
+              <p style="margin: 0; font-size: 11px; color: #94A3B8;">
                 Built in Germany &middot; Powered by Paperclip (MIT)<br>
                 &copy; 2026 Cadre
               </p>
@@ -89,7 +94,7 @@ export async function sendVerificationEmail(
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 28px;">
       <tr>
         <td style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px; text-align: center;">
-          <p style="margin: 0 0 4px; font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Your position</p>
+          <p style="margin: 0 0 4px; font-size: 13px; color: #64748B; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Your position</p>
           <p style="margin: 0; font-size: 42px; font-weight: 700; color: #4F46E5; letter-spacing: -2px;">#${position}</p>
         </td>
       </tr>
@@ -104,7 +109,7 @@ export async function sendVerificationEmail(
       </tr>
     </table>
 
-    <p style="color: #94A3B8; font-size: 12px; line-height: 1.5; margin: 24px 0 0; text-align: center;">
+    <p style="color: #64748B; font-size: 12px; line-height: 1.5; margin: 24px 0 0; text-align: center;">
       If you didn't sign up for Cadre, you can ignore this email.
     </p>`;
 
