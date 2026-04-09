@@ -23,7 +23,7 @@ if (!entry) {
 
 const isVerified = entry.email_verified || verified;
 const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
-const referralLink = `${siteUrl}?ref=${entry.referral_code}`;
+const referralLink = `${siteUrl}/r/${entry.referral_code}`;
 const badgeOgUrl = `/api/badge/${entry.referral_code}`;
 
 const tweetText = encodeURIComponent(`I'm #${entry.position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${referralLink}`);

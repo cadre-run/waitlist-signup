@@ -1,0 +1,39 @@
+---
+import { getDb } from '../../lib/runtime';
+
+const { code } = Astro.params;
+const sql = await getDb();
+
+const [entry] = await sql`
+  SELECT position FROM waitlist WHERE referral_code = ${code}
+`;
+
+if (!entry) {
+  return Astro.redirect('/');
+}
+
+const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
+const badgeUrl = `${siteUrl}/api/badge/${code}`;
+const signupUrl = `${siteUrl}/?ref=${code}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Join me on the Cadre waitlist – I'm #{entry.position}</title>
+    <meta name="description" content="My AI team is getting deployed. Are you on the list? Join the Cadre waitlist." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`Join me on the Cadre waitlist – I'm #${entry.position}`} />
+    <meta property="og:description" content="My AI team is getting deployed. Are you on the list?" />
+    <meta property="og:image" content={badgeUrl} />
+    <meta property="og:url" content={`${siteUrl}/r/${code}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`Join me on the Cadre waitlist – I'm #${entry.position}`} />
+    <meta name="twitter:description" content="My AI team is getting deployed. Are you on the list?" />
+    <meta name="twitter:image" content={badgeUrl} />
+    <meta http-equiv="refresh" content={`0;url=${signupUrl}`} />
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>

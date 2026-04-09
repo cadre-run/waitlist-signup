@@ -9,7 +9,8 @@ const badgeUrl = `/api/badge/${code}`;
 const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
 const fullBadgeUrl = `${siteUrl}${badgeUrl}`;
 
-const tweetText = encodeURIComponent(`I'm #${position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${siteUrl}?ref=${code}`);
+const shareUrl = `${siteUrl}/r/${code}`;
+const tweetText = encodeURIComponent(`I'm #${position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${shareUrl}`);
 ---
 
 <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
