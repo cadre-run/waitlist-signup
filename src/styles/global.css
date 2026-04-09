@@ -120,6 +120,7 @@
   mask-composite: exclude;
   opacity: 0;
   transition: opacity var(--duration-normal) ease;
+  pointer-events: none;
 }
 
 .card-premium:hover::before {
