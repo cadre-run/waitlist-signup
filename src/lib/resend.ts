@@ -27,14 +27,9 @@ function emailLayout(content: string) {
           <!-- Logo -->
           <tr>
             <td style="padding: 0 24px 32px;">
-              <table role="presentation" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="width: 36px; height: 36px; background: linear-gradient(135deg, #4F46E5, #7C3AED); border-radius: 10px; text-align: center; vertical-align: middle;">
-                    <span style="color: white; font-weight: 700; font-size: 18px; line-height: 36px;">C</span>
-                  </td>
-                  <td style="padding-left: 10px; font-size: 18px; font-weight: 600; color: #0F172A; letter-spacing: -0.5px;">cadre</td>
-                </tr>
-              </table>
+              <a href="https://cadre.run" style="text-decoration: none;">
+                <img src="https://cadre.run/images/logo-wordmark.svg" alt="Cadre" width="120" height="40" style="display: block; height: 40px; width: auto;" />
+              </a>
             </td>
           </tr>
 
