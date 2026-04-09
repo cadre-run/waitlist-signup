@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /welcome
+
+Sitemap: https://cadre.run/sitemap-index.xml

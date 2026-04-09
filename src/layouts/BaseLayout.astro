@@ -3,17 +3,42 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Cadre – Your AI Team, Deployed in Minutes',
   description = 'Cadre provisions a fully isolated AI company on your server. Optimized prompts, Gemini CLI ready, zero Docker headaches. Join the waitlist.',
   ogImage = '/images/og-share.png',
+  noindex = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
 
 import '../styles/global.css';
+
+// Structured data for the landing page
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Cadre',
+  url: 'https://cadre.run',
+  description: 'Cadre provisions a fully isolated AI company on your own server. Pre-optimized prompts, Gemini CLI ready, hardened infrastructure.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Cloud',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/PreOrder',
+  },
+  creator: {
+    '@type': 'Organization',
+    name: 'Cadre',
+    url: 'https://cadre.run',
+  },
+};
 ---
 
 <!doctype html>
@@ -24,18 +49,27 @@ import '../styles/global.css';
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Cadre" />
+    <meta property="og:locale" content="en_US" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@runcadre" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,7 +77,16 @@ import '../styles/global.css';
       rel="stylesheet"
     />
 
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="128x128" href="/images/logo-icon.png" />
+    <link rel="apple-touch-icon" href="/images/logo-icon.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#4F46E5" />
   </head>
   <body class="bg-white overflow-x-hidden">
     <slot />
