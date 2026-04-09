@@ -24,15 +24,15 @@ function emailLayout(content: string) {
       <td align="center">
         <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width: 480px; width: 100%;">
 
-          <!-- Logo: inline C badge + text (dark-mode safe) -->
+          <!-- Logo: PNG icon + wordmark (email-client safe) -->
           <tr>
             <td style="padding: 0 24px 32px;">
-              <a href="https://cadre.run" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <a href="https://cadre.run" style="text-decoration: none;">
                 <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-                  <td style="width: 34px; height: 34px; background: #4F46E5; border-radius: 9px; text-align: center; vertical-align: middle;">
-                    <img src="https://cadre.run/favicon.svg" alt="" width="34" height="34" style="display: block; border-radius: 9px;" />
+                  <td style="vertical-align: middle;">
+                    <img src="https://cadre.run/images/logo-icon.png" alt="Cadre" width="34" height="34" style="display: block; border-radius: 9px;" />
                   </td>
-                  <td style="padding-left: 10px; font-size: 18px; font-weight: 600; color: #0F172A; letter-spacing: -0.5px;">cadre</td>
+                  <td style="padding-left: 10px; font-size: 18px; font-weight: 600; color: #0F172A; letter-spacing: -0.5px; vertical-align: middle;">cadre</td>
                 </tr></table>
               </a>
             </td>
