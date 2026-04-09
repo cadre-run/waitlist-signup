@@ -165,50 +165,55 @@ const emailBody = encodeURIComponent(`I just joined the Cadre waitlist. They pro
       </p>
 
     </div>
+      <!-- Inline script inside body for interactivity -->
+      <script is:inline data-referral-code={entry.referral_code}>
+        (function() {
+          var referralCode = document.currentScript.getAttribute('data-referral-code');
+
+          // Copy button
+          document.getElementById('copy-btn').addEventListener('click', function() {
+            var input = document.getElementById('referral-link');
+            navigator.clipboard.writeText(input.value);
+            var btn = document.getElementById('copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+          });
+
+          // Survey form
+          document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = e.target;
+            var usecase = form.usecase.value;
+            var hosting = form.hosting.value;
+            if (!usecase && !hosting) return;
+
+            fetch('/api/survey', {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ referral_code: referralCode, usecase: usecase, hosting: hosting }),
+            }).then(function(res) {
+              if (res.ok) {
+                document.getElementById('survey-success').classList.remove('hidden');
+                form.querySelector('button').disabled = true;
+                form.querySelector('button').textContent = 'Saved';
+              }
+            });
+          });
+
+          // Social proof
+          fetch('/api/stats')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              var el = document.getElementById('social-proof');
+              if (el && data.total_signups != null) {
+                var ago = data.last_signup_at ? new Date(data.last_signup_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+                el.textContent = data.total_signups + ' people on the waitlist' + (ago ? ' · Last signup: ' + ago : '');
+              }
+            })
+            .catch(function() {});
+        })();
+      </script>
+
+    </div>
   </main>
 </BaseLayout>
-
-<script define:vars={{ referralCode: entry.referral_code }}>
-  // Copy button
-  document.getElementById('copy-btn')?.addEventListener('click', () => {
-    const input = document.getElementById('referral-link');
-    navigator.clipboard.writeText(input.value);
-    const btn = document.getElementById('copy-btn');
-    btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
-  });
-
-  // Survey form
-  document.getElementById('survey-form')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const usecase = form.usecase.value;
-    const hosting = form.hosting.value;
-
-    if (!usecase && !hosting) return;
-
-    const res = await fetch('/api/survey', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ referral_code: referralCode, usecase, hosting }),
-    });
-
-    if (res.ok) {
-      document.getElementById('survey-success')?.classList.remove('hidden');
-      form.querySelector('button').disabled = true;
-      form.querySelector('button').textContent = 'Saved';
-    }
-  });
-
-  // Social proof
-  fetch('/api/stats')
-    .then((r) => r.json())
-    .then((data) => {
-      const el = document.getElementById('social-proof');
-      if (el && data.total_signups != null) {
-        const ago = data.last_signup_at ? new Date(data.last_signup_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
-        el.textContent = `${data.total_signups} people on the waitlist${ago ? ` · Last signup: ${ago}` : ''}`;
-      }
-    })
-    .catch(() => {});
-</script>
