@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
 import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
 import sql from '../../../lib/db';
 
 let fontCache: ArrayBuffer | null = null;
@@ -115,16 +114,10 @@ export const GET: APIRoute = async ({ params }) => {
     },
   );
 
-  const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width' as const, value: 1200 },
-  });
-  const pngData = resvg.render();
-  const pngBuffer = pngData.asPng();
-
-  return new Response(pngBuffer, {
+  return new Response(svg, {
     status: 200,
     headers: {
-      'Content-Type': 'image/png',
+      'Content-Type': 'image/svg+xml',
       'Cache-Control': 'public, max-age=3600',
     },
   });

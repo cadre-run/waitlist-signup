@@ -22,7 +22,7 @@ if (!entry) {
 const isVerified = entry.email_verified || verified;
 const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
 const referralLink = `${siteUrl}?ref=${entry.referral_code}`;
-const badgeOgUrl = `/api/badge/${entry.referral_code}.png`;
+const badgeOgUrl = `/api/badge/${entry.referral_code}`;
 
 const tweetText = encodeURIComponent(`I'm #${entry.position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${referralLink}`);
 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`;

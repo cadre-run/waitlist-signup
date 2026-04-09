@@ -1,7 +1,7 @@
 {
 	"compatibility_date": "2026-04-09",
 	"compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
-	"name": "waitlist_signup",
+	"name": "cadre-waitlist",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
 		"directory": "./dist",
@@ -9,5 +9,15 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	"hyperdrive": [
+		{
+			"binding": "HYPERDRIVE",
+			"id": "0ff9be4205c34770b8550774c030c078",
+			"localConnectionString": "postgresql://a8g6ky_0:m7%3FD%2AUjqnTJk@l1id.your-database.de:5432/cadre_waitlist?sslmode=require"
+		}
+	],
+	"vars": {
+		"SITE_URL": "https://cadre.run"
 	}
 }

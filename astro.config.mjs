@@ -4,16 +4,16 @@ import cloudflare from '@astrojs/cloudflare';
 import node from '@astrojs/node';
 import tailwindcss from '@tailwindcss/vite';
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isProduction = process.argv.includes('build');
 
 export default defineConfig({
   site: 'https://cadre.run',
   output: 'server',
-  adapter: isDev
-    ? node({ mode: 'standalone' })
-    : cloudflare({
+  adapter: isProduction
+    ? cloudflare({
         platformProxy: { enabled: true },
-      }),
+      })
+    : node({ mode: 'standalone' }),
   vite: {
     plugins: [tailwindcss()],
   },
