@@ -15,7 +15,11 @@ export default defineConfig({
         platformProxy: { enabled: true },
       })
     : node({ mode: 'standalone' }),
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/welcome') && !page.includes('/r/'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
