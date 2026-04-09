@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Cadre – Your AI Team, Deployed in Minutes',
-  description = 'Cadre provisions a fully isolated AI company on your server. Optimized prompts, Gemini CLI ready, zero Docker headaches. Join the waitlist.',
+  title = 'Cadre – Managed Paperclip Hosting | Your AI Company in Minutes',
+  description = 'Managed Paperclip hosting with 60% token optimization and intelligent routing. Deploy your AI company on your own server in minutes. No Docker needed.',
   ogImage = '/images/og-share.png',
   noindex = false,
 } = Astro.props;
@@ -24,7 +24,7 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'Cadre',
   url: 'https://cadre.run',
-  description: 'Cadre provisions a fully isolated AI company on your own server. Pre-optimized prompts, Gemini CLI ready, hardened infrastructure.',
+  description: 'Managed Paperclip hosting with 60% token optimization, intelligent routing, and vertical modules. Deploy your AI company on your own server in minutes.',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Cloud',
   offers: {
@@ -38,6 +38,109 @@ const jsonLd = {
     name: 'Cadre',
     url: 'https://cadre.run',
   },
+};
+
+// Organization structured data
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Cadre',
+  url: 'https://cadre.run',
+  logo: 'https://cadre.run/images/logo-icon.png',
+  description: 'Managed Paperclip hosting platform with token optimization, intelligent routing, and vertical AI modules.',
+  foundingDate: '2026',
+  sameAs: [
+    'https://x.com/runcadre',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    url: 'https://cadre.run',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'DE',
+  },
+};
+
+// FAQ structured data for rich snippets
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How much does it actually cost to run AI agents?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 24/7 Gemini Pro agent costs ~$1,755/month via raw API. With Cadre\'s token optimization and intelligent model routing, that drops to ~$89/month. With a Google AI Pro subscription ($20/month), your marginal cost approaches zero.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How is Cadre different from PaperclipCloud?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'PaperclipCloud deploys vanilla Paperclip — it\'s hosting. Cadre is a platform: 60% token optimization, intelligent multi-model routing, subscription support, server hardening, and vertical modules for content creation and document management.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do I need my own API keys?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'You can use either API keys or CLI subscriptions. Cadre supports Gemini CLI (Google AI Pro from $20/month), Claude Code, and Codex. Subscriptions are 5-10x cheaper than API keys for 24/7 usage.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Where does my data live?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'On your own server, with the hosting provider you choose (Hetzner, Netcup, DigitalOcean). One dedicated node per tenant with full data isolation. Cadre never stores your data.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this based on Paperclip?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Cadre builds on Paperclip\'s open-source foundation (MIT) with surgical patches for token optimization and quota-aware model selection, plus separate packages for everything else. We sync upstream every 2-4 weeks.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What about security? Paperclip has no rate limiting.',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Vanilla Paperclip has no rate limiting, no security headers, and runs in local trusted mode by default. Cadre adds NGINX with SSL, rate limiting, security headers, SSH hardening (Fail2ban, UFW), and automatic security updates.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which AI providers and models are supported?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Gemini CLI (Flash Lite, Flash, Pro), Claude Code (Haiku, Sonnet, Opus), and Codex. Cadre\'s intelligent routing automatically picks the cheapest model capable of each task.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What does Cadre itself cost?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Pricing is not finalized yet. Join the waitlist for founding member pricing. You\'ll pay for infrastructure management only — no per-token markup.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I migrate from my existing Paperclip setup?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Cadre runs Paperclip under the hood, so your existing companies, agents, goals, and configurations are compatible. Migration path available at launch.',
+      },
+    },
+  ],
 };
 ---
 
@@ -84,6 +187,8 @@ const jsonLd = {
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 
     <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#4F46E5" />

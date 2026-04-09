@@ -1,24 +1,40 @@
 ---
 const faqs = [
   {
+    q: 'How much does it actually cost to run AI agents?',
+    a: 'It depends on the model and how you pay. A 24/7 Gemini Pro agent costs ~$1,755/month via raw API. With Cadre\'s token optimization and intelligent model routing (80% Flash Lite, 15% Flash, 5% Pro), that drops to ~$89/month. With a Google AI Pro subscription ($20/month), your marginal cost approaches zero. We optimize regardless of whether you use subscriptions or API keys.',
+  },
+  {
+    q: 'How is Cadre different from PaperclipCloud?',
+    a: 'PaperclipCloud deploys vanilla Paperclip on a server — it\'s hosting. Cadre is a platform: 60% token optimization via prompt interception, intelligent multi-model routing, subscription support for Gemini CLI and Claude Code, server hardening, and upcoming vertical modules for content creation and document management. PaperclipCloud gives you Paperclip. Cadre gives you a functioning AI department.',
+  },
+  {
     q: 'Do I need my own API keys?',
-    a: 'Yes, you bring your own Gemini CLI subscription (or other providers). Cadre doesn\'t charge for tokens – you only pay for infrastructure management.',
+    a: 'You can use either API keys or CLI subscriptions. Cadre supports Gemini CLI (Google AI Pro from $20/month), Claude Code, and Codex. Subscriptions are 5-10x cheaper than API keys for 24/7 usage. Cadre handles headless authentication on your server — you authenticate once during onboarding and credentials persist across container updates.',
   },
   {
     q: 'Where does my data live?',
-    a: 'On your own server, with the hosting provider you choose. Cadre provisions and manages the infrastructure but doesn\'t store your data.',
+    a: 'On your own server, with the hosting provider you choose (Hetzner, Netcup, DigitalOcean). One dedicated node per tenant with full data isolation. Cadre provisions and manages the infrastructure but never stores your data. Your agent workspaces, databases, and auth tokens live in persistent volumes on your server.',
   },
   {
     q: 'Is this based on Paperclip?',
-    a: 'Cadre builds on Paperclip\'s open-source foundation (MIT licensed) with significant enhancements: optimized prompting, Gemini CLI integration, server hardening, and an upcoming module system.',
+    a: 'Yes. Cadre builds on Paperclip\'s open-source foundation (MIT licensed) with a hybrid architecture: minimal surgical patches where necessary (token optimization in the adapter execution path, quota-aware model selection) and everything else as separate packages. We sync upstream every 2-4 weeks so you get Paperclip updates without the maintenance burden.',
   },
   {
-    q: 'What does it cost?',
-    a: 'Pricing is not finalized yet. Join the waitlist to get founding member pricing when we launch. You\'ll only pay for infrastructure – no per-token markup.',
+    q: 'What about security? Paperclip has no rate limiting.',
+    a: 'Correct — vanilla Paperclip has no rate limiting, no security headers, and runs in "local trusted" mode by default. Cadre adds NGINX reverse proxy with SSL, rate limiting middleware, security headers, SSH hardening (Fail2ban, UFW), automatic security updates, and forces authenticated mode. Your server is production-ready from minute one.',
+  },
+  {
+    q: 'Which AI providers and models are supported?',
+    a: 'At launch: Gemini CLI (Flash Lite, Flash, Pro), Claude Code (Haiku, Sonnet, Opus), and Codex. Cadre\'s intelligent routing automatically picks the cheapest model capable of each task. Simple tasks go to Flash Lite ($0.04/1M tokens), complex reasoning goes to Pro — no manual model selection needed.',
+  },
+  {
+    q: 'What does Cadre itself cost?',
+    a: 'Pricing is not finalized yet. Join the waitlist to get founding member pricing when we launch. You\'ll pay for infrastructure management only — no per-token markup, no percentage of your API spend.',
   },
   {
     q: 'Can I migrate from my existing Paperclip setup?',
-    a: 'Yes. We\'ll offer a migration path for existing self-hosted setups. Details coming with the beta launch.',
+    a: 'Yes. Since Cadre runs Paperclip under the hood, your existing companies, agents, goals, and configurations are compatible. We\'ll offer a migration path for self-hosted setups at launch.',
   },
 ];
 ---
@@ -28,7 +44,7 @@ const faqs = [
 
     <div class="text-center mb-16 animate-on-scroll">
       <h2 class="text-3xl lg:text-4xl font-semibold tracking-[-0.03em] text-[var(--color-text-primary)]">
-        Frequently asked questions
+        Paperclip hosting FAQ
       </h2>
     </div>
 

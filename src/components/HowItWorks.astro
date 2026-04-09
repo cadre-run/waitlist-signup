@@ -5,18 +5,21 @@ const steps = [
     title: 'Choose your infrastructure',
     description: 'Pick your hosting provider – Hetzner, Netcup, or DigitalOcean. Select your VPS size. Done.',
     image: '/images/step-01-providers.png',
+    alt: 'Choose your Paperclip hosting provider — Hetzner, Netcup, DigitalOcean',
   },
   {
     number: '02',
     title: 'Configure your AI company',
     description: 'Define departments, assign roles, set budgets. Our intake form handles your entire .env and first setup.',
     image: '/images/step-02-glass-cards.png',
+    alt: 'Configure AI agent departments and roles in your Paperclip company',
   },
   {
     number: '03',
     title: 'Log in and go',
     description: 'Your server is provisioned, secured, and running. Log in to your Cadre dashboard and start delegating.',
     image: '/images/step-03-dashboard.png',
+    alt: 'Cadre AI company dashboard with live agent monitoring and cost tracking',
   },
 ];
 ---
@@ -30,7 +33,7 @@ const steps = [
     <div class="text-center mb-20 lg:mb-24 animate-on-scroll">
       <p class="text-sm font-semibold text-primary uppercase tracking-wider mb-3">How it works</p>
       <h2 class="text-3xl lg:text-[2.75rem] font-bold tracking-[-0.03em] text-[var(--color-text-primary)]">
-        Three steps to your AI team
+        Deploy your AI company in 3 steps
       </h2>
     </div>
 
@@ -68,7 +71,7 @@ const steps = [
                 <div class="relative rounded-[var(--radius-md)] overflow-hidden border border-[var(--color-border-light)] shadow-[var(--shadow-sm)] group-hover:shadow-[var(--shadow-md)] transition-shadow" style="transition-duration: var(--duration-slow);">
                   <img
                     src={step.image}
-                    alt={step.title}
+                    alt={step.alt}
                     class="w-full transition-transform group-hover:scale-[1.02]"
                     style="transition-duration: var(--duration-slow);"
                     width="400"
