@@ -23,6 +23,12 @@
 			"id": "9b24d1524c404d11b1929bd2c5751398"
 		}
 	],
+	"routes": [
+		{
+			"pattern": "cadre.run/*",
+			"zone_name": "cadre.run"
+		}
+	],
 	"vars": {
 		"SITE_URL": "https://cadre.run"
 	}
