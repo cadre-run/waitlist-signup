@@ -19,7 +19,6 @@
     "astro": "^6.1.5",
     "postgres": "^3.4.9",
     "resend": "^6.10.0",
-    "satori": "^0.26.0",
     "tailwindcss": "^4.2.2",
     "wrangler": "^4.81.0"
   },
