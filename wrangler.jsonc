@@ -17,6 +17,12 @@
 			"localConnectionString": "postgresql://a8g6ky_0:m7%3FD%2AUjqnTJk@l1id.your-database.de:5432/cadre_waitlist?sslmode=require"
 		}
 	],
+	"kv_namespaces": [
+		{
+			"binding": "SESSION",
+			"id": "9b24d1524c404d11b1929bd2c5751398"
+		}
+	],
 	"vars": {
 		"SITE_URL": "https://cadre.run"
 	}

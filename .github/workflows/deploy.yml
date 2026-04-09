@@ -36,9 +36,9 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SITE_URL: https://cadre.run
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cadre-waitlist --branch=main
+          command: deploy --config dist/server/wrangler.json
