@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WaitlistBadge from '../components/WaitlistBadge.astro';
-import sql from '../lib/db';
+import { getDb } from '../lib/runtime';
+
+const sql = await getDb();
 
 const code = Astro.url.searchParams.get('code');
 const verified = Astro.url.searchParams.get('verified') === 'true';

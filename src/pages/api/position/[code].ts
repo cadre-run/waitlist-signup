@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
-import sql from '../../../lib/db';
+import { getDb } from '../../../lib/runtime';
 
 export const GET: APIRoute = async ({ params }) => {
+  const sql = await getDb();
   const { code } = params;
 
   if (!code) {
@@ -10,8 +11,7 @@ export const GET: APIRoute = async ({ params }) => {
 
   const [entry] = await sql`
     SELECT position, original_position, referral_count, email_verified
-    FROM waitlist
-    WHERE referral_code = ${code}
+    FROM waitlist WHERE referral_code = ${code}
   `;
 
   if (!entry) {

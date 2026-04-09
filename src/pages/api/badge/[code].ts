@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import satori from 'satori';
-import sql from '../../../lib/db';
+import { getDb } from '../../../lib/runtime';
 
 let fontCache: ArrayBuffer | null = null;
 
@@ -15,6 +15,7 @@ async function getFont(): Promise<ArrayBuffer> {
 }
 
 export const GET: APIRoute = async ({ params }) => {
+  const sql = await getDb();
   const { code } = params;
 
   if (!code) {

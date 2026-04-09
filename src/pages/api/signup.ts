@@ -1,10 +1,12 @@
 import type { APIRoute } from 'astro';
-import sql from '../../lib/db';
+import { getDb, getRuntimeEnv } from '../../lib/runtime';
 import { isValidEmail, isDisposableEmail, generateReferralCode, generateVerificationToken, getNextPosition } from '../../lib/referral';
 import { isRateLimited } from '../../lib/rate-limit';
 import { sendVerificationEmail } from '../../lib/resend';
 
 export const POST: APIRoute = async ({ request }) => {
+  const sql = await getDb();
+  const env = await getRuntimeEnv();
   const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'unknown';
   const userAgent = request.headers.get('user-agent') || '';
 
@@ -26,7 +28,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'Disposable email addresses are not allowed' }), { status: 400 });
   }
 
-  if (await isRateLimited(ip)) {
+  if (await isRateLimited(sql, ip)) {
     return new Response(JSON.stringify({ error: 'Too many signups. Please try again later.' }), { status: 429 });
   }
 
@@ -45,7 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const referralCode = generateReferralCode();
   const verificationToken = generateVerificationToken();
-  const position = await getNextPosition();
+  const position = await getNextPosition(sql);
 
   if (referredBy === referralCode) {
     referredBy = null;
@@ -57,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
     RETURNING id, referral_code, position
   `;
 
-  await sendVerificationEmail(email, verificationToken, position, entry.id);
+  await sendVerificationEmail(sql, email, verificationToken, position, entry.id, env);
 
   return new Response(
     JSON.stringify({

@@ -1,7 +1,9 @@
 import type { APIRoute } from 'astro';
-import sql from '../../lib/db';
+import { getDb } from '../../lib/runtime';
 
 export const GET: APIRoute = async () => {
+  const sql = await getDb();
+
   const [result] = await sql`
     SELECT
       COUNT(*) FILTER (WHERE email_verified = TRUE) AS total_signups,

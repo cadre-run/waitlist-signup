@@ -1,10 +1,12 @@
 import type { APIRoute } from 'astro';
-import sql from '../../lib/db';
+import { getDb } from '../../lib/runtime';
 
 const VALID_USECASES = ['Content Agency', 'Lead Research', 'Back-Office Automation', 'DMS', 'Code Review', 'Other'];
 const VALID_HOSTING = ['Hetzner', 'Netcup', 'DigitalOcean', 'AWS', 'Other', 'None yet'];
 
 export const PATCH: APIRoute = async ({ request }) => {
+  const sql = await getDb();
+
   let body: { referral_code?: string; usecase?: string; hosting?: string };
   try {
     body = await request.json();

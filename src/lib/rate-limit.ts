@@ -1,6 +1,6 @@
-import sql from './db';
+import type { Sql } from 'postgres';
 
-export async function isRateLimited(ip: string): Promise<boolean> {
+export async function isRateLimited(sql: Sql, ip: string): Promise<boolean> {
   const [result] = await sql`
     SELECT COUNT(*) AS cnt FROM waitlist
     WHERE ip_address = ${ip}

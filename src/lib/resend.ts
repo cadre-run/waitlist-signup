@@ -1,17 +1,28 @@
 import { Resend } from 'resend';
-import sql from './db';
+import type { Sql } from 'postgres';
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-const SITE_URL = import.meta.env.SITE_URL || 'https://cadre.run';
+function getResend(env?: Record<string, any>) {
+  const apiKey = env?.RESEND_API_KEY || import.meta.env.RESEND_API_KEY;
+  return new Resend(apiKey);
+}
+
+function getSiteUrl(env?: Record<string, any>) {
+  return env?.SITE_URL || import.meta.env.SITE_URL || 'https://cadre.run';
+}
+
 const FROM = 'Cadre <hello@cadre.run>';
 
 export async function sendVerificationEmail(
+  sql: Sql,
   email: string,
   token: string,
   position: number,
   waitlistId: number,
+  env?: Record<string, any>,
 ): Promise<void> {
-  const verifyUrl = `${SITE_URL}/api/verify?token=${token}`;
+  const resend = getResend(env);
+  const siteUrl = getSiteUrl(env);
+  const verifyUrl = `${siteUrl}/api/verify?token=${token}`;
 
   const { data, error } = await resend.emails.send({
     from: FROM,
@@ -44,12 +55,16 @@ export async function sendVerificationEmail(
 }
 
 export async function sendWelcomeEmail(
+  sql: Sql,
   email: string,
   position: number,
   referralCode: string,
   waitlistId: number,
+  env?: Record<string, any>,
 ): Promise<void> {
-  const referralUrl = `${SITE_URL}?ref=${referralCode}`;
+  const resend = getResend(env);
+  const siteUrl = getSiteUrl(env);
+  const referralUrl = `${siteUrl}?ref=${referralCode}`;
 
   const { data, error } = await resend.emails.send({
     from: FROM,

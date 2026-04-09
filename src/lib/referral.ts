@@ -1,4 +1,4 @@
-import sql from './db';
+import type { Sql } from 'postgres';
 
 const DISPOSABLE_DOMAINS = new Set([
   'mailinator.com', 'guerrillamail.com', 'tempmail.com', 'throwaway.email',
@@ -35,12 +35,12 @@ export function isDisposableEmail(email: string): boolean {
   return DISPOSABLE_DOMAINS.has(domain);
 }
 
-export async function getNextPosition(): Promise<number> {
+export async function getNextPosition(sql: Sql): Promise<number> {
   const [result] = await sql`SELECT COALESCE(MAX(position), 0) + 1 AS next FROM waitlist`;
   return result.next;
 }
 
-export async function creditReferral(referrerCode: string, referredEmail: string, ip: string): Promise<void> {
+export async function creditReferral(sql: Sql, referrerCode: string, referredEmail: string, ip: string): Promise<void> {
   await sql.begin(async (tx) => {
     const [referrer] = await tx`
       SELECT id, position FROM waitlist
