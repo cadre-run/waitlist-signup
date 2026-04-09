@@ -26,7 +26,7 @@ const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
 const referralLink = `${siteUrl}/r/${entry.referral_code}`;
 const badgeOgUrl = `/api/badge/${entry.referral_code}`;
 
-const tweetText = encodeURIComponent(`I'm #${entry.position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${referralLink}`);
+const tweetText = encodeURIComponent(`I'm #${entry.position} on the @runcadre waitlist. Your AI team, deployed in minutes.\n\n${referralLink}`);
 const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`;
 const emailSubject = encodeURIComponent('Check out Cadre – AI team deployment');
 const emailBody = encodeURIComponent(`I just joined the Cadre waitlist. They provision a fully isolated AI company on your own server.\n\nJoin here: ${referralLink}`);
