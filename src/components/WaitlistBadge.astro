@@ -1,0 +1,46 @@
+---
+interface Props {
+  code: string;
+  position: number;
+}
+
+const { code, position } = Astro.props;
+const badgeUrl = `/api/badge/${code}.png`;
+const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
+const fullBadgeUrl = `${siteUrl}${badgeUrl}`;
+
+const tweetText = encodeURIComponent(`I'm #${position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${siteUrl}?ref=${code}`);
+---
+
+<div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+  <h3 class="text-base font-semibold text-[var(--color-text-primary)] mb-4">Your waitlist badge</h3>
+  <div class="bg-[#0F172A] rounded-[var(--radius-md)] overflow-hidden aspect-square max-w-[280px] mx-auto mb-5">
+    <img
+      src={badgeUrl}
+      alt={`Waitlist position #${position}`}
+      class="w-full h-full object-cover"
+      width="280"
+      height="280"
+      loading="lazy"
+    />
+  </div>
+  <div class="flex gap-3">
+    <a
+      href={fullBadgeUrl}
+      download={`cadre-waitlist-${position}.png`}
+      class="flex-1 text-center px-4 py-2.5 rounded-[var(--radius-sm)] border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-primary)] hover:bg-white transition-colors cursor-pointer"
+      style="transition-duration: var(--duration-fast);"
+    >
+      Download
+    </a>
+    <a
+      href={`https://x.com/intent/tweet?text=${tweetText}`}
+      target="_blank"
+      rel="noopener"
+      class="flex-1 text-center px-4 py-2.5 rounded-[var(--radius-sm)] bg-[var(--color-text-primary)] text-white text-sm font-medium hover:bg-[var(--color-text-primary)]/90 transition-colors cursor-pointer"
+      style="transition-duration: var(--duration-fast);"
+    >
+      Share on X
+    </a>
+  </div>
+</div>

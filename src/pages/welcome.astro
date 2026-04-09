@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WaitlistBadge from '../components/WaitlistBadge.astro';
+import sql from '../lib/db';
+
+const code = Astro.url.searchParams.get('code');
+const verified = Astro.url.searchParams.get('verified') === 'true';
+
+if (!code) {
+  return Astro.redirect('/');
+}
+
+const [entry] = await sql`
+  SELECT position, original_position, referral_code, referral_count, email_verified, survey_usecase, survey_hosting
+  FROM waitlist WHERE referral_code = ${code}
+`;
+
+if (!entry) {
+  return Astro.redirect('/');
+}
+
+const isVerified = entry.email_verified || verified;
+const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
+const referralLink = `${siteUrl}?ref=${entry.referral_code}`;
+const badgeOgUrl = `/api/badge/${entry.referral_code}.png`;
+
+const tweetText = encodeURIComponent(`I'm #${entry.position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${referralLink}`);
+const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`;
+const emailSubject = encodeURIComponent('Check out Cadre – AI team deployment');
+const emailBody = encodeURIComponent(`I just joined the Cadre waitlist. They provision a fully isolated AI company on your own server.\n\nJoin here: ${referralLink}`);
+---
+
+<BaseLayout
+  title={`You're #${entry.position} on the Cadre waitlist`}
+  description="You're on the Cadre waitlist. Share your link to move up."
+  ogImage={badgeOgUrl}
+>
+  <main class="min-h-screen bg-white relative overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0 bg-gradient-radial pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-2xl px-6 py-16 lg:py-24">
+
+      <!-- Logo -->
+      <div class="mb-12">
+        <a href="/">
+          <img src="/images/logo-wordmark.svg" alt="Cadre" class="h-10 w-auto" />
+        </a>
+      </div>
+
+      <!-- Position Header -->
+      <div class="text-center mb-12" style="animation: var(--animate-fade-up); animation-delay: 0s;">
+        <div class:list={[
+          'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-medium mb-6',
+          isVerified ? 'bg-emerald-50 text-emerald-600 border border-emerald-200' : 'bg-amber-50 text-amber-600 border border-amber-200',
+        ]}>
+          {isVerified ? (
+            <><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg> Confirmed</>
+          ) : (
+            <><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Pending verification</>
+          )}
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-bold tracking-[-0.035em] text-[var(--color-text-primary)]">
+          You're in. <span class="text-gradient">#{entry.position}</span>
+        </h1>
+        {!isVerified && (
+          <p class="mt-4 text-[var(--color-text-secondary)]">Check your inbox to confirm your email.</p>
+        )}
+        {entry.original_position !== entry.position && (
+          <p class="mt-3 text-sm text-[var(--color-accent-warm)] font-medium">
+            Started at #{entry.original_position} – moved up {entry.original_position - entry.position} spot{entry.original_position - entry.position !== 1 ? 's' : ''}!
+          </p>
+        )}
+      </div>
+
+      <!-- Referral Section -->
+      <div class="card-premium p-8 mb-8" style="animation: var(--animate-fade-up); animation-delay: 0.1s;">
+        <h2 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">Move up the list</h2>
+        <p class="text-[var(--color-text-secondary)] mb-6">Every signup through your link moves you one spot up.</p>
+
+        <div class="flex items-center gap-2 mb-6">
+          <input
+            type="text"
+            value={referralLink}
+            readonly
+            class="flex-1 px-4 py-3 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-surface)] text-sm font-mono text-[var(--color-text-primary)]"
+            id="referral-link"
+          />
+          <button
+            class="px-5 py-3 rounded-[var(--radius-sm)] bg-primary text-white text-sm font-semibold hover:bg-primary-hover transition-colors cursor-pointer"
+            style="transition-duration: var(--duration-fast);"
+            id="copy-btn"
+          >
+            Copy
+          </button>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mb-6">
+          <a href={`https://x.com/intent/tweet?text=${tweetText}`} target="_blank" rel="noopener" class="px-4 py-2.5 rounded-[var(--radius-sm)] border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors cursor-pointer" style="transition-duration: var(--duration-fast);">
+            Share on X
+          </a>
+          <a href={linkedInUrl} target="_blank" rel="noopener" class="px-4 py-2.5 rounded-[var(--radius-sm)] border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors cursor-pointer" style="transition-duration: var(--duration-fast);">
+            Share on LinkedIn
+          </a>
+          <a href={`mailto:?subject=${emailSubject}&body=${emailBody}`} class="px-4 py-2.5 rounded-[var(--radius-sm)] border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors cursor-pointer" style="transition-duration: var(--duration-fast);">
+            Share via Email
+          </a>
+        </div>
+
+        <p class="text-sm text-[var(--color-text-tertiary)]">
+          You've referred <strong class="text-[var(--color-text-primary)]">{entry.referral_count}</strong> {entry.referral_count === 1 ? 'person' : 'people'}
+        </p>
+      </div>
+
+      <!-- Badge -->
+      <div class="mb-8" style="animation: var(--animate-fade-up); animation-delay: 0.2s;">
+        <WaitlistBadge code={entry.referral_code} position={entry.position} />
+      </div>
+
+      <!-- Survey -->
+      <div class="card-premium p-8 mb-8" id="survey-section" style="animation: var(--animate-fade-up); animation-delay: 0.3s;">
+        <h2 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">Help us build the right thing</h2>
+        <p class="text-[var(--color-text-secondary)] mb-6">Two quick questions – takes 10 seconds.</p>
+
+        <form id="survey-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">What's your primary use case?</label>
+            <select name="usecase" class="w-full px-4 py-3 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] cursor-pointer">
+              <option value="">Select...</option>
+              <option value="Content Agency" selected={entry.survey_usecase === 'Content Agency'}>Content Agency</option>
+              <option value="Lead Research" selected={entry.survey_usecase === 'Lead Research'}>Lead Research</option>
+              <option value="Back-Office Automation" selected={entry.survey_usecase === 'Back-Office Automation'}>Back-Office Automation</option>
+              <option value="DMS" selected={entry.survey_usecase === 'DMS'}>DMS</option>
+              <option value="Code Review" selected={entry.survey_usecase === 'Code Review'}>Code Review</option>
+              <option value="Other" selected={entry.survey_usecase === 'Other'}>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[var(--color-text-primary)] mb-1.5">Which hosting provider do you use?</label>
+            <select name="hosting" class="w-full px-4 py-3 rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-white text-[var(--color-text-primary)] cursor-pointer">
+              <option value="">Select...</option>
+              <option value="Hetzner" selected={entry.survey_hosting === 'Hetzner'}>Hetzner</option>
+              <option value="Netcup" selected={entry.survey_hosting === 'Netcup'}>Netcup</option>
+              <option value="DigitalOcean" selected={entry.survey_hosting === 'DigitalOcean'}>DigitalOcean</option>
+              <option value="AWS" selected={entry.survey_hosting === 'AWS'}>AWS</option>
+              <option value="Other" selected={entry.survey_hosting === 'Other'}>Other</option>
+              <option value="None yet" selected={entry.survey_hosting === 'None yet'}>None yet</option>
+            </select>
+          </div>
+          <button type="submit" class="px-6 py-3 rounded-[var(--radius-sm)] bg-primary text-white font-semibold hover:bg-primary-hover transition-colors cursor-pointer" style="transition-duration: var(--duration-fast);">
+            Submit
+          </button>
+        </form>
+        <p class="hidden mt-4 text-sm text-primary font-medium" id="survey-success">
+          <svg class="w-4 h-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          Thanks! Your answers have been saved.
+        </p>
+      </div>
+
+      <!-- Social Proof -->
+      <p class="text-center text-sm text-[var(--color-text-tertiary)]" id="social-proof" style="animation: var(--animate-fade-up); animation-delay: 0.4s;">
+        Loading waitlist stats...
+      </p>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<script define:vars={{ referralCode: entry.referral_code }}>
+  // Copy button
+  document.getElementById('copy-btn')?.addEventListener('click', () => {
+    const input = document.getElementById('referral-link');
+    navigator.clipboard.writeText(input.value);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+
+  // Survey form
+  document.getElementById('survey-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const usecase = form.usecase.value;
+    const hosting = form.hosting.value;
+
+    if (!usecase && !hosting) return;
+
+    const res = await fetch('/api/survey', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ referral_code: referralCode, usecase, hosting }),
+    });
+
+    if (res.ok) {
+      document.getElementById('survey-success')?.classList.remove('hidden');
+      form.querySelector('button').disabled = true;
+      form.querySelector('button').textContent = 'Saved';
+    }
+  });
+
+  // Social proof
+  fetch('/api/stats')
+    .then((r) => r.json())
+    .then((data) => {
+      const el = document.getElementById('social-proof');
+      if (el && data.total_signups != null) {
+        const ago = data.last_signup_at ? new Date(data.last_signup_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+        el.textContent = `${data.total_signups} people on the waitlist${ago ? ` · Last signup: ${ago}` : ''}`;
+      }
+    })
+    .catch(() => {});
+</script>
