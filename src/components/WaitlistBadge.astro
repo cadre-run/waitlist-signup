@@ -7,32 +7,39 @@ interface Props {
 const { code, position } = Astro.props;
 const badgeUrl = `/api/badge/${code}`;
 const siteUrl = import.meta.env.SITE_URL || 'https://cadre.run';
-const fullBadgeUrl = `${siteUrl}${badgeUrl}`;
 
 const shareUrl = `${siteUrl}/r/${code}`;
-const tweetText = encodeURIComponent(`I'm #${position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\n${shareUrl}`);
+const tweetText = encodeURIComponent(`I'm #${position} on the @cadre waitlist. Your AI team, deployed in minutes.\n\nJoin → ${shareUrl}`);
 ---
 
 <div class="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
   <h3 class="text-base font-semibold text-[var(--color-text-primary)] mb-4">Your waitlist badge</h3>
-  <div class="bg-[#0F172A] rounded-[var(--radius-md)] overflow-hidden aspect-square max-w-[280px] mx-auto mb-5">
-    <img
-      src={badgeUrl}
-      alt={`Waitlist position #${position}`}
-      class="w-full h-full object-cover"
-      width="280"
-      height="280"
-      loading="lazy"
-    />
+
+  <!-- Badge display: use object tag for proper SVG rendering -->
+  <div class="rounded-[var(--radius-md)] overflow-hidden max-w-[320px] mx-auto mb-5">
+    <object
+      data={badgeUrl}
+      type="image/svg+xml"
+      class="w-full"
+      style="aspect-ratio: 1/1;"
+    >
+      <img src={badgeUrl} alt={`Waitlist position #${position}`} class="w-full" />
+    </object>
   </div>
+
+  <p class="text-center text-sm text-[var(--color-text-tertiary)] mb-5">
+    Download your badge, then attach it when sharing on X or LinkedIn.
+  </p>
+
   <div class="flex gap-3">
     <a
-      href={fullBadgeUrl}
-      download={`cadre-waitlist-${position}.png`}
+      href={badgeUrl}
+      download={`cadre-waitlist-${position}.svg`}
       class="flex-1 text-center px-4 py-2.5 rounded-[var(--radius-sm)] border border-[var(--color-border)] text-sm font-medium text-[var(--color-text-primary)] hover:bg-white transition-colors cursor-pointer"
       style="transition-duration: var(--duration-fast);"
     >
-      Download
+      <svg class="w-4 h-4 inline-block mr-1.5 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+      Download Badge
     </a>
     <a
       href={`https://x.com/intent/tweet?text=${tweetText}`}
